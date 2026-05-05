@@ -1,11 +1,18 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
+from pydantic_settings import BaseSettings,SettingsConfigDict
 
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:Dhruv%400512@localhost/TodoApplicationDatabase'
-# 'sqlite:///./todosapp.db'
 
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+class Settings(BaseSettings):
+    DATABASE_URL: str
+
+    model_config = SettingsConfigDict(env_file=".env")
+
+
+settings = Settings()
+
+engine = create_engine(settings.SQLALCHEMY_DATABASE_URL)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
