@@ -3,7 +3,7 @@ from typing import Annotated
 from sqlalchemy.orm import Session
 from fastapi import APIRouter, Depends, HTTPException
 from pydantic import BaseModel, Field
-from pydantic_settings import BaseSettings,SettingsConfigDict
+from config import settings
 from database import SessionLocal
 from models import Users
 from passlib.context import CryptContext
@@ -18,17 +18,6 @@ router=APIRouter(
 
 bcrypt_context=CryptContext(schemes=['bcrypt'] , deprecated='auto')
 oauth2_bearer=OAuth2PasswordBearer(tokenUrl='auth/token')
-
-class Settings(BaseSettings):
-    SECRET_KEY: str
-    ALGORITHM: str = 'HS256'
-
-    model_config = SettingsConfigDict(
-        env_file=".env",
-        env_file_encoding="utf-8"
-    )
-
-settings = Settings()
 
 class CreateUserRequest(BaseModel):
     username:str
