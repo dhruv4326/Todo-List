@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 from fastapi import APIRouter , Depends, HTTPException,Path
 from starlette import status
-from models import todos
+from models import Todos
 from database import SessionLocal
 from .auth import get_current_user
 
@@ -28,15 +28,15 @@ user_dependency=Annotated[dict,Depends(get_current_user)]
 async def read_all(user:user_dependency,db:db_dependency):
     if user is None or user.get('role')!='admin':
         raise HTTPException(status_code=401,detail="Authentication failed.")
-    return db.query(todos).all()
+    return db.query(Todos).all()
     
     
 @router.delete("/delete/{todo_id}")
 async def delete_todo(user:user_dependency,db:db_dependency , todo_id:int=Path(gt=0)):
     if user is None or user.get('role')!='admin':
         raise HTTPException(status_code=401,detail="Authentication failed.")
-    todo_model=db.query(todos).filter(todo_id== todos.id).first()
+    todo_model=db.query(Todos).filter(todo_id== Todos.id).first()
     if todo_model is None:
         raise HTTPException(status_code=404,detail="todo not found")
-    db.query(todos).filter(todo_id== todos.id).delete()
+    db.query(Todos).filter(todo_id== Todos.id).delete()
     db.commit()

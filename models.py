@@ -14,7 +14,7 @@ class Users(Base):
     role=Column(String)
     phone_number=Column(String)
 
-class todos(Base):
+class Todos(Base):
     __tablename__='todos'
     id=Column(Integer,primary_key=True , index=True)
     title=Column(String)

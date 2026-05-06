@@ -1,11 +1,22 @@
-from fastapi import FastAPI 
+from fastapi import FastAPI , Request ,status
 import models
 from database import engine
 from routers import auth,todos, admin,Users
+from fastapi.responses import RedirectResponse
+from fastapi.staticfiles import StaticFiles
 
 app=FastAPI()
 
 models.Base.metadata.create_all(bind=engine)
+
+app.mount("/static",StaticFiles(directory="static"),name="static");
+@app.get("/")
+def test(request: Request):
+    return RedirectResponse(
+        url="/todos/todo-page",
+        status_code=status.HTTP_302_FOUND
+        
+    )
 
 #including other api endpoints on top of main.py
 app.include_router(auth.router)
