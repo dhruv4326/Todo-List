@@ -1,47 +1,187 @@
-# Todo List API
+# Todo App - FastAPI + PostgreSQL
 
-A backend Todo REST API built with FastAPI, PostgreSQL, SQLAlchemy, JWT authentication, and role-based access control.
+A full-stack Todo Management Application built using **FastAPI**, **PostgreSQL**, **SQLAlchemy ORM**, and **Jinja2 Templates** with secure JWT-based authentication and role-based access control.
 
-## Features
+## Live Demo
 
-- User registration and login
-- JWT-based authentication
-- Password hashing using bcrypt
-- Create, read, update, and delete todos
-- User-specific todo access
-- Admin-only routes to view and delete all todos
-- Update user password
-- Update user phone number
-- PostgreSQL database integration
-- Environment-based secret management using `.env`
+🔗 [https://todo-app-joax.onrender.com/auth/login-page]
 
-## Tech Stack
+---
 
-- Python
-- FastAPI
-- PostgreSQL
-- SQLAlchemy
-- Pydantic
-- JWT / python-jose
-- Passlib bcrypt
-- Alembic
+# Features
 
-## Project Structure
+* User Registration & Login
+* JWT Authentication
+* Password Hashing using bcrypt
+* Role-Based Authorization (User/Admin)
+* Create, Update, Delete Todos
+* PostgreSQL Database Integration
+* SQLAlchemy ORM
+* Alembic Database Migrations
+* Jinja2 Frontend Templates
+* Bootstrap UI
+* Environment Variable Configuration
+* Render Deployment
+* Neon PostgreSQL Integration
+
+---
+
+# Tech Stack
+
+## Backend
+
+* FastAPI
+* SQLAlchemy
+* PostgreSQL
+* Alembic
+* JWT Authentication
+* Passlib (bcrypt)
+
+## Frontend
+
+* HTML
+* CSS
+* Bootstrap
+* Jinja2 Templates
+
+## Deployment
+
+* Render
+* Neon PostgreSQL
+
+---
+
+# Project Structure
 
 ```bash
-Todo-List/
+TODOAPP/
 │
 ├── alembic/
 ├── routers/
-│   ├── auth.py
-│   ├── todos.py
-│   ├── admin.py
-│   └── Users.py
-│
-├── database.py
+├── static/
+├── templates/
 ├── models.py
+├── database.py
+├── config.py
 ├── main.py
-├── alembic.ini
-├── .gitignore
-└── README.md
+├── requirements.txt
+└── alembic.ini
+```
 
+---
+
+# Authentication Flow
+
+* Users register with secure password hashing
+* JWT access token generated after login
+* Protected routes require authentication
+* Admin routes protected using role-based authorization
+
+---
+
+# Environment Variables
+
+Create a `.env` file:
+
+```env
+SECRET_KEY=your_secret_key
+ALGORITHM=HS256
+SQLALCHEMY_DATABASE_URL=your_database_url
+```
+
+---
+
+# Installation & Setup
+
+## Clone Repository
+
+```bash
+git clone https://github.com/dhruv4326/Todo-List.git
+cd Todo-List
+```
+
+## Create Virtual Environment
+
+```bash
+python -m venv fastapienv
+```
+
+## Activate Environment
+
+### Windows
+
+```bash
+fastapienv\Scripts\activate
+```
+
+### Linux/Mac
+
+```bash
+source fastapienv/bin/activate
+```
+
+## Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+# Run Alembic Migrations
+
+```bash
+alembic upgrade head
+```
+
+---
+
+# Run Application
+
+```bash
+uvicorn main:app --reload
+```
+
+Application will run on:
+
+```text
+http://127.0.0.1:8000
+```
+
+---
+
+# API Documentation
+
+Swagger UI:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+---
+
+# Security Improvements
+
+* Environment variables used for sensitive credentials
+* Public admin role assignment removed
+* JWT-based authentication
+* Password hashing using bcrypt
+
+---
+
+# Future Improvements
+
+* Docker Deployment
+* CI/CD Pipeline
+* Email Verification
+* Password Reset
+* Better Admin Dashboard
+* Responsive UI Enhancements
+
+---
+
+# Author
+
+Dhruv
+
+GitHub: https://github.com/dhruv4326
